@@ -1,0 +1,7 @@
+{
+  "name": "dementIApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
