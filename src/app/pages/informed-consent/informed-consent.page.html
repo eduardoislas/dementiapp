@@ -1,13 +1,29 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>informedConsent</ion-title>
+    <ion-title>Consentimiento informado</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">informedConsent</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="container">
+    <div class="header">
+      <h1>Consentimiento informado</h1>
+    </div>
+    <div class="content">
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut feugiat justo sit amet ipsum tempor, ut maximus
+        turpis molestie. Sed ac lorem convallis, dictum lectus ut, rhoncus ex. Integer quis suscipit ligula. Mauris
+        venenatis maximus commodo. Suspendisse at porta mauris. Etiam vehicula eros quis dignissim dapibus. Nullam
+        fermentum risus eget eleifend pharetra. Nullam nisi metus, aliquet ut turpis nec, elementum mollis nisi. Mauris
+        suscipit ullamcorper sapien sit amet consequat.
+      </p>
+    </div>
+    <div class="checkbox">
+      <ion-checkbox [(ngModel)]="accepted">Acepto los términos del aviso de privacidad</ion-checkbox>
+    </div>
+    <div class="buttons">
+      <ion-button expand="block" color="primary" (click)="accept()" [disabled]="!accepted">Aceptar</ion-button>
+      <ion-button expand="block" color="danger" (click)="reject()">Rechazar</ion-button>
+    </div>
+  </div>
 </ion-content>

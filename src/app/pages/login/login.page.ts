@@ -27,6 +27,7 @@ export class LoginPage implements OnInit {
       const user: User = res.user;
       if (user.role === 'FAMILIAR') {
         localStorage.setItem('token', res.token);
+        localStorage.setItem('user', user._id);
         this.router.navigate(['/home']);
       } else {
         this.presentAlert('Debe ser familiar');

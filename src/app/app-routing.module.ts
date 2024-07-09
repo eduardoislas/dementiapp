@@ -19,6 +19,18 @@ const routes: Routes = [
     path: 'dataconfirmation',
     loadChildren: () => import('./pages/data-confirmation/data-confirmation.module').then( m => m.DataConfirmationPageModule)
   },
+  {
+    path: 'assistant',
+    loadChildren: () => import('./pages/assistant/assistant.module').then( m => m.AssistantPageModule)
+  },
+  {
+    path: 'patientdata',
+    loadChildren: () => import('./pages/patient-data/patient-data.module').then( m => m.PatientDataPageModule)
+  },
+  {
+    path: 'profile',
+    loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule)
+  },
 ];
 
 @NgModule({

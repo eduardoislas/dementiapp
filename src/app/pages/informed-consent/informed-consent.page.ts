@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-informed-consent',
@@ -7,10 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InformedConsentPage implements OnInit {
 
-  constructor() { }
+  accepted: boolean = false;
+
+  constructor(private router: Router) { }
 
   ngOnInit() {
     console.log("Consentimiento informado")
+  }
+
+  accept() {
+    console.log("Acepta")
+    localStorage.setItem('informedConsent', 'true');
+    this.router.navigate(['/dataconfirmation']); 
+  }
+
+  reject() {
+    console.log("Rechaza")
+    this.router.navigate(['/home']); 
   }
 
 }

@@ -1,0 +1,26 @@
+ion-content.data-confirmation-content {
+  --background: #ffffff; /* Color de fondo del contenido */
+}
+
+ion-item.data-confirmation-item {
+  --background: transparent; /* Color de fondo de los elementos de la lista */
+}
+
+ion-label.data-confirmation-label {
+  color: #333333; /* Color del texto de la etiqueta */
+}
+
+ion-input.data-confirmation-input {
+  --color: #333333; /* Color del texto de los campos de entrada */
+}
+
+ion-select.data-confirmation-select {
+  --placeholder-color: #666666; /* Color del texto del marcador de posición */
+  --color: #333333; /* Color del texto de las opciones */
+}
+
+ion-button.data-confirmation-button {
+  --background: #007bff; /* Color de fondo del botón */
+  --color: #ffffff; /* Color del texto del botón */
+  --border-radius: 8px; /* Radio de borde del botón */
+}

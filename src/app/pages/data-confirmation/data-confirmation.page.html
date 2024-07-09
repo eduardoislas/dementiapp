@@ -1,13 +1,72 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>dataConfirmation</ion-title>
+    <ion-title>Confirmar datos</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">dataConfirmation</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="data-confirmation-content">
+
+  <ion-item class="data-confirmation-item">
+    <ion-label><b>Nombre:</b></ion-label>
+    <ion-input type="text" [(ngModel)]="name" label=""></ion-input>
+    <ion-input type="text" [(ngModel)]="lastName" label=""></ion-input>
+    <ion-input type="text" [(ngModel)]="lastNameSecond" label=""></ion-input>
+  </ion-item>
+
+  <ion-item class="data-confirmation-item">
+    <ion-label><b>Fecha de nacimiento:</b></ion-label>
+    <ion-input type="text" [(ngModel)]="birthdate" label=""></ion-input>
+  </ion-item>
+
+  <ion-item class="data-confirmation-item">
+    <ion-label><b>Ocupación:</b></ion-label>
+    <ion-input type="text" [(ngModel)]="occupation" label=""></ion-input>
+  </ion-item>
+
+  <ion-item class="data-confirmation-item">
+    <ion-label><b>Escolaridad:</b></ion-label>
+    <ion-input type="text" [(ngModel)]="school" label=""></ion-input>
+  </ion-item>
+
+  <ion-item class="data-confirmation-item">
+    <ion-label><b>Confirma que usted es:</b></ion-label>
+    <ion-select [(ngModel)]="relation" interface="popover" placeholder="Parentezco" label="">
+      <ion-select-option value="Esposo(a)">Esposo(a)</ion-select-option>
+      <ion-select-option value="Pareja">Pareja</ion-select-option>
+      <ion-select-option value="Hijo(a)">Hijo(a)</ion-select-option>
+      <ion-select-option value="Padre/Madre">Padre/Madre</ion-select-option>
+      <ion-select-option value="Nieto(a)">Nieto(a)</ion-select-option>
+      <ion-select-option value="Sobrino(a)">Sobrino(a)</ion-select-option>
+      <ion-select-option value="Amigo(a)">Amigo(a)</ion-select-option>
+      <ion-select-option value="Otro">Otro</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item class="data-confirmation-item">
+    <ion-label><b>De:</b></ion-label>
+    <ion-input type="text" [(ngModel)]="nameP" label=""></ion-input>
+    <ion-input type="text" [(ngModel)]="lastNameP" label=""></ion-input>
+    <ion-input type="text" [(ngModel)]="lastNameSecondP" label=""></ion-input>
+  </ion-item>
+
+  <ion-item class="data-confirmation-item">
+    <ion-label><b>Con fecha de nacimiento:</b></ion-label>
+    <ion-input type="text" [(ngModel)]="birthDateP" label=""></ion-input>
+  </ion-item>
+
+  <ion-item class="data-confirmation-item">
+    <ion-label><b>y diagnóstico(s):</b></ion-label>
+    <ion-input type="text" label="">
+      <ng-container *ngFor="let item of diagnosis; let last = last">
+        {{ item }}{{ !last ? ', ' : '' }}
+      </ng-container>
+    </ion-input>
+  </ion-item>
+
+  <ion-item class="data-confirmation-item">
+    <ion-label><b>Perteneciente a la fase:</b></ion-label>
+    <ion-input type="text" [(ngModel)]="phase" label=""></ion-input>
+  </ion-item>
+
+  <ion-button expand="block" (click)="confirmar()" class="data-confirmation-button">Confirmar</ion-button>
 </ion-content>

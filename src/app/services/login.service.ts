@@ -14,15 +14,7 @@ const urlAlz = myglobals.URL_ALZ;
   export class LoginService {
     constructor(private http: HttpClient) { }
 
-    /**
-   * Método POST que envía los datos del usuario para realizar el inicio
-   * de sesión. Estos datos son obtenidos de login.page.ts
-   * @param name 
-   * @param password 
-   */
     login(name: string, password: string): Observable<any> {
-      console.log(name)
-      console.log(password)
       return this.http.post<Login>(`${urlAlz}/login`, {
         name,
         password

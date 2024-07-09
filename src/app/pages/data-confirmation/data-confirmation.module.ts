@@ -17,4 +17,4 @@ import { DataConfirmationPage } from './data-confirmation.page';
   ],
   declarations: [DataConfirmationPage]
 })
-export class DataConfirmationPageModule {}
+export class DataConfirmationPageModule { }
