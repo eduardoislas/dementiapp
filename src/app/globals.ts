@@ -11,4 +11,5 @@
 export const URL_ALZ = 'https://alzaidapi.acislab.com';
 
 //DementIA API
-export const URL_DEM = 'https://dementiaapi.acislab.com';
+// export const URL_DEM = 'https://dementiaapi.acislab.com';
+export const URL_DEM = 'http://localhost:3000';

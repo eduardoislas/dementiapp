@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Caregiver, apiCaregiver } from 'src/app/interfaces/caregivers';
-import { CaregiverService } from 'src/app/services/caregiver.service';
-import { formatDate } from 'src/app/utils/date-format';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {Caregiver, apiCaregiver} from 'src/app/interfaces/caregivers';
+import {CaregiverService} from 'src/app/services/caregiver.service';
+import {formatDate} from 'src/app/utils/date-format';
 
 @Component({
   selector: 'app-data-confirmation',
@@ -30,7 +30,8 @@ export class DataConfirmationPage implements OnInit {
   private caregiver?: Caregiver;
 
   constructor(private caregiverService: CaregiverService,
-    private router: Router) { }
+              private router: Router) {
+  }
 
   ngOnInit() {
     this.userId = localStorage.getItem('user') || "";
@@ -67,10 +68,13 @@ export class DataConfirmationPage implements OnInit {
       this.relation = caregiver.relation;
       this.phase = caregiver.patient.phase;
       this.diagnosis = caregiver.patient.diagnosis.map(diagnosis => diagnosis.name);
-    }
-    else {
+    } else {
       console.error('No se encontró información del cuidador/paciente');
     }
   }
 
+  reject() {
+    console.log("Rechaza")
+    this.router.navigate(['/']);
+  }
 }

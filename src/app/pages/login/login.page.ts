@@ -19,7 +19,6 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
     this.storage.create();
-    localStorage.clear();
   }
 
   login(username: any, password: any) {
