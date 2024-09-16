@@ -4,7 +4,7 @@ import {CaregiverService} from '../../services/caregiver.service';
 import {Router} from '@angular/router';
 import {apiUser} from "../../interfaces/users";
 import {UserService} from "../../services/user.service";
-import {ThreadService} from "../../services/thread.service";
+import {AssistantService} from "../../services/assistant.service";
 
 @Component({
   selector: 'app-home',
@@ -22,8 +22,7 @@ export class HomePage implements OnInit {
   patientName: string = "";
 
   constructor(private caregiverService: CaregiverService,
-              private router: Router, private userService: UserService,
-              private threadService: ThreadService) {
+              private router: Router, private userService: UserService) {
   }
 
   ngOnInit() {
@@ -50,6 +49,7 @@ export class HomePage implements OnInit {
         this.dataConfirmed = localStorage.getItem('dataConfirmed') === 'true';
         this.userService.validateUser(newUser).subscribe((resp: apiUser) => {
           this.apiUser = resp;
+          localStorage.setItem('threadId', JSON.stringify(this.apiUser.threadId));
         });
         if (!this.informedConsent && !this.apiUser?.informedConsent) {
           this.navigateTo('informedconsent');

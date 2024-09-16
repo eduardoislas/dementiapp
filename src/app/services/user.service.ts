@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-
-import * as myglobals from '../globals';
-import {apiCaregiver} from "../interfaces/caregivers";
 import {apiUser} from "../interfaces/users";
 import {Observable} from "rxjs";
+import * as myglobals from '../globals';
 
 const urlDem = myglobals.URL_DEM;
 

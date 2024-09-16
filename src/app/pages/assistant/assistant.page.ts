@@ -1,9 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {IonContent} from "@ionic/angular";
-import {Message} from "../../interfaces/assistant";
+import {Message, UserQuestion} from "../../interfaces/assistant";
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {CustomValidators} from "../../utils/custom-validators";
 import {Caregiver} from "../../interfaces/caregivers";
+import {AssistantService} from "../../services/assistant.service";
 
 @Component({
   selector: 'app-assistant',
@@ -16,6 +17,7 @@ export class AssistantPage implements OnInit {
   messages: Message[] = [];
   relationWithPatient: string | undefined = "";
   private caregiver?: Caregiver;
+  threadId: string = localStorage.getItem('threadId') || "";
 
   form = new FormGroup({
     prompt: new FormControl('', [Validators.required, CustomValidators.noWhiteSpace])
@@ -23,7 +25,7 @@ export class AssistantPage implements OnInit {
 
   loading: boolean = false;
 
-  constructor() {
+  constructor(private assistantService: AssistantService) {
   }
 
   submit() {
@@ -31,10 +33,10 @@ export class AssistantPage implements OnInit {
     if (this.form.valid) {
       let prompt = this.form.value.prompt as string;
 
-      let userMsg: Message = {sender: 'me', content: prompt}
+      let userMsg: Message = {role: 'me', content: prompt}
       this.messages.push(userMsg);
 
-      let botMsg: Message = {sender: 'bot', content: ''}
+      let botMsg: Message = {role: 'bot', content: ''}
       this.messages.push(botMsg);
 
       this.scrollToBottom();
@@ -42,18 +44,21 @@ export class AssistantPage implements OnInit {
       this.form.disable();
 
       this.loading = true;
+      const userQuestion: UserQuestion = {
+        threadId: this.threadId,
+        question: prompt
+      }
 
-      // this.openAi.sendQuestion(promt).subscribe({
-      //   next: (res: any) => {
-      //     this.loading = false;
-      //     this.typeText(res.bot)
-      //     this.form.enable();
-      //   }, error: (error: any) => {
-      //     console.log(error);
-      //   },
-      // })
+      this.assistantService.userQuestion(userQuestion).subscribe({
+        next: (res: any) => {
+          this.loading = false;
+          this.typeText(res.bot)
+          this.form.enable();
+        }, error: (error: any) => {
+          console.log(error);
+        },
+      })
     }
-
   }
 
   typeText(text: string) {
@@ -85,10 +90,6 @@ export class AssistantPage implements OnInit {
     if (caregiverData) {
       return JSON.parse(caregiverData);
     }
-  }
-
-  private initThread(){
-
   }
 
 }
