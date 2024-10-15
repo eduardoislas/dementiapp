@@ -29,35 +29,39 @@ export class AssistantPage implements OnInit {
   }
 
   submit() {
-
     if (this.form.valid) {
       let prompt = this.form.value.prompt as string;
-
-      let userMsg: Message = {role: 'me', content: prompt}
+      let userMsg: Message = {role: 'user', content: prompt}
       this.messages.push(userMsg);
-
-      let botMsg: Message = {role: 'bot', content: ''}
-      this.messages.push(botMsg);
 
       this.scrollToBottom();
       this.form.reset();
       this.form.disable();
-
       this.loading = true;
       const userQuestion: UserQuestion = {
         threadId: this.threadId,
         question: prompt
-      }
+      };
 
       this.assistantService.userQuestion(userQuestion).subscribe({
         next: (res: any) => {
           this.loading = false;
-          this.typeText(res.bot)
+          if (res && res.message && res.message.content) {
+            const botMsg: Message = { role: 'assistant', content: res.message.content };
+            this.messages.push(botMsg);
+          } else {
+            this.messages.push({ role: 'assistant', content: 'No se recibió una respuesta válida.' });
+          }
+          this.scrollToBottom();
           this.form.enable();
-        }, error: (error: any) => {
-          console.log(error);
         },
-      })
+        error: (error: any) => {
+          console.error(error);
+          this.messages.push({ role: 'assistant', content: 'Lo siento, ha ocurrido un error.' });
+          this.scrollToBottom();
+          this.form.enable();
+        }
+      });
     }
   }
 
@@ -67,7 +71,9 @@ export class AssistantPage implements OnInit {
 
     let interval = setInterval(() => {
       if (textIndex < text.length) {
-        this.messages[messagesLastIndex].content += text.charAt(textIndex);
+        if (this.messages[messagesLastIndex]) {
+          this.messages[messagesLastIndex].content += text.charAt(textIndex);
+        }
         textIndex++;
       } else {
         clearInterval(interval);
@@ -83,6 +89,7 @@ export class AssistantPage implements OnInit {
   ngOnInit(): void {
     this.caregiver = this.getCaregiver();
     this.relationWithPatient = this.caregiver?.relation;
+    this.loadMessages();
   }
 
   private getCaregiver() {
@@ -92,4 +99,26 @@ export class AssistantPage implements OnInit {
     }
   }
 
+  loadMessages() {
+    if (this.threadId) {
+      this.assistantService.getMessagesByThreadId(this.threadId).subscribe({
+        next: (res: any) => {
+          if (res && Array.isArray(res.messages)) {
+            this.messages = res.messages.map((msg: any) => ({
+              role: msg.role,
+              content: msg.content.join(' ')
+            })).reverse();
+            this.scrollToBottom();
+          } else {
+            console.error('Formato de respuesta inesperado:', res);
+          }
+        },
+        error: (err) => {
+          console.error('Error al recuperar los mensajes:', err);
+        }
+      });
+    } else {
+      console.error('No se encontró un threadId');
+    }
+  }
 }

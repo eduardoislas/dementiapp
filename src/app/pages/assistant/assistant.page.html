@@ -8,23 +8,32 @@
 </ion-header>
 
 <ion-content [scrollEvents]="true">
-
   <div *ngIf="!messages.length" class="empty">
-      <ion-icon [src]="'assets/bot.svg'"></ion-icon>
-      <h4>Pregúntame lo que desees saber sobre Demencia y temas relacionados con el diagnóstico de tu {{ relationWithPatient }}</h4>
+    <ion-icon [src]="'assets/bot.svg'"></ion-icon>
+    <h4>Pregúntame lo que desees saber sobre Demencia y temas relacionados con el diagnóstico de tu {{ relationWithPatient }}</h4>
   </div>
 
-  <ion-item lines="none" [ngClass]="{'bot': m.role !== 'me'}" class="chat-item" *ngFor="let m of messages; index as i">
-    <ion-badge [color]="m.role == 'me' ? 'success' : 'tertiary'" mode="ios">
-        <ion-icon class="chat-icon" [src]="m.role == 'me' ? 'assets/user.svg' : 'assets/bot.svg'"></ion-icon>
-    </ion-badge>
-    <ion-label class="ion-text-wrap">
-      <p class="w-space"> {{m.content}} </p>
-      <ion-spinner *ngIf="loading && (i+1 == messages.length)" color="tertiary" name="dots"></ion-spinner>
+  <div *ngFor="let m of messages; index as i" [ngClass]="{'user': m.role === 'user', 'bot': m.role !== 'user'}" class="chat-item">
+    <ion-label class="text-box-item ion-text-wrap" *ngIf="m.role === 'user'">
+      <p class="w-space"> {{ m.content }} </p>
+      <ion-spinner *ngIf="loading && (i + 1 === messages.length)" color="tertiary" name="dots"></ion-spinner>
     </ion-label>
-  </ion-item>
 
+    <ion-badge [color]="'success'" mode="ios" *ngIf="m.role === 'user'">
+      <ion-icon class="chat-icon" src="assets/user.svg"></ion-icon>
+    </ion-badge>
+
+    <ion-badge [color]="'tertiary'" mode="ios" *ngIf="m.role !== 'user'">
+      <ion-icon class="chat-icon" src="assets/bot.svg"></ion-icon>
+    </ion-badge>
+
+    <ion-label class="text-box-item ion-text-wrap" *ngIf="m.role !== 'user'">
+      <p class="w-space"> {{ m.content }} </p>
+      <ion-spinner *ngIf="loading && (i + 1 === messages.length)" color="tertiary" name="dots"></ion-spinner>
+    </ion-label>
+  </div>
 </ion-content>
+
 
 
 <ion-footer class="ion-padding">

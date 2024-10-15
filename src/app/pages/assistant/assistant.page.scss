@@ -1,39 +1,66 @@
-.chat-item{
-    --padding-top: 10px;
-    --padding-bottom: 10px;
-
-    &.bot{
-        --background: transparent;
-    }
+.chat-item {
+    display: flex; /* Usar flexbox para alinear los elementos */
+    align-items: flex-end; /* Alinear verticalmente los elementos al final */
+    margin: 10px 0; /* Espaciado entre mensajes */
 }
 
-.text-box-item{
-    --border-radius: 15px;
-    --background: var(--ion-color-light);
+.user {
+    justify-content: flex-end; /* Alinear a la derecha para el usuario */
 }
 
-.chat-icon{
-    font-size: 23px;
+.user .text-box-item {
+    background-color: #d1f9c4; /* Color de fondo para el mensaje del usuario */
+    border-radius: 20px 20px 0 20px; /* Bordes redondeados para el mensaje del usuario */
+    padding: 10px; /* Espaciado interno */
+    position: relative; /* Para el triángulo de los globos */
+    max-width: 70%; /* Limitar el ancho del mensaje del usuario */
 }
 
-
-ion-badge{
-    padding: 15px;
+.user .text-box-item:after {
+    content: ''; /* Triángulo del globo */
+    position: absolute;
+    right: -10px; /* Posicionar el triángulo a la derecha */
+    top: 10px; /* Alinear verticalmente */
+    border-width: 10px; /* Tamaño del triángulo */
+    border-style: solid;
+    border-color: transparent transparent transparent #d1f9c4; /* Color del triángulo */
 }
 
-.w-space{
-    white-space: pre-line;
+.bot {
+    justify-content: flex-start; /* Alinear a la izquierda para el asistente */
 }
 
-.submit-icon{
+.bot .text-box-item {
+    background-color: #f1f1f1; /* Color de fondo para el mensaje del asistente */
+    border-radius: 20px 20px 20px 0; /* Bordes redondeados para el mensaje del asistente */
+    padding: 10px; /* Espaciado interno */
+    position: relative; /* Para el triángulo de los globos */
+    max-width: 70%; /* Limitar el ancho del mensaje del asistente */
+}
+
+.bot .text-box-item:after {
+    content: ''; /* Triángulo del globo */
+    position: absolute;
+    left: -10px; /* Posicionar el triángulo a la izquierda */
+    top: 10px; /* Alinear verticalmente */
+    border-width: 10px; /* Tamaño del triángulo */
+    border-style: solid;
+    border-color: transparent #f1f1f1 transparent transparent; /* Color del triángulo */
+}
+
+.w-space {
+    white-space: pre-line; /* Mantener el formato del texto */
+}
+
+.submit-icon {
     font-size: 25px;
 }
 
-.empty{
+.empty {
     text-align: center;
     padding-top: 30vh;
     opacity: 40%;
-    ion-icon{
+    ion-icon {
         font-size: 120px;
     }
 }

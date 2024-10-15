@@ -1,6 +1,6 @@
 export  interface Message {
     role: string,
-    content: string | any
+    content: string[] | any
 }
 
 export interface Thread {
